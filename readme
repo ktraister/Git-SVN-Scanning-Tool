@@ -1,0 +1,1 @@
+myscanner.py is a python tool to aid in searching an SVN/Git repo for a search string without having to download any files! This tool also works with plain http/https webpages of any kind! This tool is not tested with a page using any kind of HTML/CSS magic, but we may add that support in the future
