@@ -3,10 +3,11 @@
 import requests
 import sys
 import os
-import datetime 
+import datetime
 
 outfile = "svn_scan.txt"
 
+#lets get argparser in here to do the heavy lifting
 try:
     base = str(sys.argv[1])
 
@@ -39,7 +40,7 @@ def dircrawl(EXT, LIST):
     mylist = page.split('href')
 
     for entry in mylist:
-        line = entry 
+        line = entry
         line = line.split('>')
         line = line[0].replace('=', '')
         if line.startswith("b'"):
@@ -80,19 +81,22 @@ def filekek(FILE, SEARCH_STRING):
     #print("Search string: ", SEARCH_STRING)
     if SEARCH_STRING in r:
         print("FOUND STRING %s IN FILE %s" % (SEARCH_STRING, FILE))
+        #incomplete aspect for writing to outfile
+        """
         if os.path.isfile('svn_scan.txt') and fileck_flag == 0:
             outfile = "%s%s" % ("svn_scan.txt", str(datetime.datetime.now()))
             fileck_flag = 1
         with open(outfile, "a") as scanfile:
             scanfile.write(FILE)
+        """
 
 
 
-#list for files we're going to check 
+#list for files we're going to check
 target_files = []
 
-#lists to hold directories we're going to check for files 
-#each one corresponds to a level of directory we're going to check 
+#lists to hold directories we're going to check for files
+#each one corresponds to a level of directory we're going to check
 #i.e. {https://repo-url/one/two/three/...}
 one_deep = []
 two_deep = []
@@ -133,7 +137,7 @@ three_deep = []
 
 for line in four_deep:
     dircrawl(line, five_deep)
-four_deep = [] 
+four_deep = []
 
 for line in five_deep:
     dircrawl(line, six_deep)
@@ -176,7 +180,7 @@ for line in fourteen_deep:
 fourteen_deep = []
 
 for line in fifteen_deep:
-    dircrawl(line, lifeboat_list) 
+    dircrawl(line, lifeboat_list)
 fifteen_deep = []
 
 #warn the user that they overran our ability to scan the repo
